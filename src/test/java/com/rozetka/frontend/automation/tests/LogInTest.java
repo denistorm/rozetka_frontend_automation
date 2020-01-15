@@ -5,9 +5,6 @@ import com.codeborne.selenide.Selenide;
 import com.rozetka.frontend.automation.pages.Pages;
 import com.rozetka.frontend.automation.popups.Popups;
 import org.testng.annotations.*;
-import sun.jvm.hotspot.debugger.Page;
-
-import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
 
 public class LogInTest {
 
@@ -23,9 +20,9 @@ public class LogInTest {
                 .clickLoginButton();
     }
 
-    @AfterClass
+    @AfterTest
     public void tearDown() {
-        closeWebDriver();
+        Selenide.close();
     }
 
     // only two invalid values are used because after the third try validation by Captcha is appeared

@@ -1,15 +1,9 @@
 package com.rozetka.frontend.automation.tests;
 
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Driver;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideDriver;
+import com.codeborne.selenide.*;
 import com.rozetka.frontend.automation.pages.Pages;
 import com.rozetka.frontend.automation.popups.Popups;
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
-
-import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
 
 public class AddItemInShoppingCartTest {
 
@@ -20,10 +14,10 @@ public class AddItemInShoppingCartTest {
     }
 
     @AfterClass
-    public void tearDown() { closeWebDriver(); }
+    public void tearDown() { Selenide.close(); }
 
     // positive test
-    @Test
+    @Test(priority = 3)
     public void testAddItemInShoppingCart() {
         Pages.mainPage()
                 .enterItemNameInTheFindInputField(Given.ITEM_NAME) // tea "Curtis ягодный Cool Berries"
@@ -46,7 +40,7 @@ public class AddItemInShoppingCartTest {
     }
 
     // negative test: minimal amount of tea "Curtis ягодный Cool Berries" is 3 (by default)
-    @Test(dataProvider = "item_quantity_values")
+    @Test(priority = 4, dataProvider = "item_quantity_values")
     public void testEnterUnavailableQuantityForSelectedItem(String itemQuantityValue) {
         Popups.shoppingCartPopup()
                 .clearItemQuantity()
